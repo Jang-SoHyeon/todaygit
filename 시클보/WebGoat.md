@@ -5,11 +5,11 @@
     1-2 [(A2) SQL Injection(advanced)](#sql-injectionadvanced)  
 ## (A1) Injection
 ### SQL Injection(intro)
-<b>[2 개념]</b>
+<b>[2 개념]</b>  
 SQL(Structured Query Language)이란?  
 : 관계형 databases를 관리하고 database 안에서 data에서 다양한 작업을 수행하기 위해 사용되는 표준화된(ANSI in 1986, ISO in 1987) 프로그래밍 언어이다.  
 
-database : data의 모임  
+database : data의 모임 <br>   
 data : 행들, 열들, 테이블들로 구성됨 그리고 관련 정보를 쉽게 찾을 수 있도록 indexing 됨  
 <br>  
 

@@ -13,21 +13,28 @@ database : data의 모임 <br>
 data : 행들, 열들, 테이블들로 구성됨 그리고 관련 정보를 쉽게 찾을 수 있도록 indexing 됨  
 <br>  
 
-[2의 문제]  
-아래 Employees Table에서 Bob Franco의 부서를 이끌어 내라  
+employees 테이블  <br>  
 <img src = "../image/SQL[2] 문제.png" width ="100%">
 
-[2의 답]    
+[2의 문제]  <br>
+아래 Employees Table에서 Bob Franco의 부서를 이끌어 내라  <br>
+
+[2의 답]    <br>
 <img src = "../image/SQL[2]답.png" width ="100%">
 
-<b>[3 개념]</b>
+<b>[3 개념]</b>  
 DML(Data Manipulation Language)란?  
 : 데이터를 다룬다.  
 : SELECT, INSERT, UPDATE, DELETE 등과 같은 가장 일반적인 SQL문을 포함한다.  
 
 - SELECT : 하나의 database로부터 데이터를 도출한다.
 - INSERT : 하나의 table에 데이터를 삽입한다.
-- UPDATE : 하나의 table 내부에 존재하는 데이터를 update(수정) 한다.
-- DELETE : 한 database table로부터 모든 기록들을 삭제한다.
+- UPDATE : 하나의 table 내부에 존재하는 데이터를 update(수정) 한다.  
+- DELETE : 한 database table로부터 모든 기록들을 삭제한다.  
+
+[3의 문제]<br>  
+Tobi Barnett의 부서를 'Sales'로 부서를 바꿔봅시다.  
+[3의 답]<br>
+<img src = "../image/SQL[3]답.png" width ="100%">
 
 ### SQL Injection(advanced)

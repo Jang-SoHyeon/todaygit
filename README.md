@@ -16,3 +16,5 @@ git push -u origin main
 &nbsp; : 공백 한 칸  
 &ensp; : 중간 스페이스  
 &emsp; : 큰 스페이스  
+
+ctrl+/ : 한 문장 주석 처리

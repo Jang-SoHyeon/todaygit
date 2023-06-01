@@ -12,3 +12,7 @@ git push -u origin main
 
 <hr> 줄 생김
 <br> 강제 줄바꿈 \n같은거
+
+&nbsp; : 공백 한 칸  
+&ensp; : 중간 스페이스  
+&emsp; : 큰 스페이스  

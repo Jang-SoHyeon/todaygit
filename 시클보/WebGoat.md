@@ -5,6 +5,12 @@
     1-2 [(A2) SQL Injection(advanced)](#sql-injectionadvanced)  
 ## (A1) Injection
 ### SQL Injection(intro)
+<b>[1]</b>   
+1-1에서 배울 것
+
+- SQL이 무엇인가
+- 개발자의 원래 의도가 아닌 작업을 수행하도록 조작하는 방법
+
 <b>[2 개념]</b>  
 SQL(Structured Query Language)이란?  
 : 관계형 databases를 관리하고 database 안에서 data에서 다양한 작업을 수행하기 위해 사용되는 표준화된(ANSI in 1986, ISO in 1987) 프로그래밍 언어이다.  
@@ -13,7 +19,6 @@ database : data의 모임 <br>
 data : 행들, 열들, 테이블들로 구성됨 그리고 관련 정보를 쉽게 찾을 수 있도록 indexing 됨  
 <br>  
 
-employees 테이블  <br>  
 <img src = "../image/SQL[2] 문제.png" width ="100%">
 
 [2의 문제]  <br>
@@ -41,9 +46,9 @@ DDL(Data Definition Language)란?
 : 데이터를 정의하는 언어  
 : 어떤 데이터 베이스, 스키마, 테이블이 필요한지 등 데이터의 구조를 설계  
 
-- CREATE : database, 테이블 등을 생성
-- ALTER : 존재하는 database, 테이블의 구조를 수정한다.
-- DROP : database, 테이블을 삭제
+- CREATE : 데이터베이스, 테이블 등을 생성
+- ALTER : 존재하는 데이터베이스, 테이블의 구조를 수정한다.
+- DROP : 데이터베이스, 테이블을 삭제
 
 [4의 문제]  
 employees 테이블에 "phone" column(varchar(20))을 추가하여 scheme를 수정해봅시다.  <br>
@@ -54,7 +59,16 @@ employees 테이블에 "phone" column(varchar(20))을 추가하여 scheme를 수
 DCL(Data Control Language)란?  
 : 데이터 사용 권한을 주는 언어
 
+- GRANT : 데이터베이스에 접근 권한을 허용
+- REVOKE : GRANT로 인해 주어진 사용 권한을 박탈함  
 
+[5의 문제]  
+usergroup "UnauthorizedUser"에게 테이블 변경 권리를 줘봅시다. <br>
+[5의 답]
+<!-- <img src = "../image/SQL[4]답.png" width ="100%"> -->
 
+<b>[6 개념]</b>  
+SQL injection란?  
+: 가장 일반적인 웹 해킹 기술
 
 ### SQL Injection(advanced)

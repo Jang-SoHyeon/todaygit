@@ -71,4 +71,8 @@ usergroup "UnauthorizedUser"에게 테이블 변경 권리를 줘봅시다. <br>
 SQL injection란?  
 : 가장 일반적인 웹 해킹 기술
 
+[12의 답]  
+Smith
+3SL99A';
+update employees set SALARY=83700 where last_name='Smith'--
 ### SQL Injection(advanced)

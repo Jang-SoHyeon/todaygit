@@ -114,7 +114,7 @@ array([0.90965, 0.90965, 0.90965])
   
 > if. 아래 오차 행렬에서 cat에 해당하는 이미지 샘플을 dog으로 잘못 분류한 횟수를 알고 싶다면 (cat 행, dog 열)에 위치한 값을 확인  
 >     
->  <img src = "../image/오차 행렬.png" width ="100%">
+>  <img src = "../image/오차 행렬.png" width ="80%">
 
 숫자 5-감지기에 대한 오차 행렬
 - cross_val_predict() : k-fold 교차 검증 수행, 각 validation fold의 샘플들에 대해 분류기가 에측한 결과(y_train_pred)를 반환  

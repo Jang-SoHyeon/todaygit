@@ -17,4 +17,18 @@
 >   
 > 머신러닝 모델 : <b> 회귀 모델</b>  
 > 회귀 모델 성능 측정 지표 : <b>평균 제곱근 오차(RMSE)</b> 를 사용  
+> 이번에 할 일  
+> - 예측 모델 선택 후 훈련시키기  
 
+
+예측 모델  
+1. 선형 회귀 모델 (Linear Regression)  
+: 사이킷런의 LinearRegression 클래스를 활용하여 선형 회귀 모델 생성  
+: 앞서 구현한 데이터 전처리 파이프라인(preprocessing 변환기)에 LinearRegression 예측기 추가  
+
+'''
+from sklearn.linear_model import LinearRegression 
+
+lin_reg = make_pipeline(preprocessing, LinearRegression())
+lin_reg.fit(housing, housing_labels)
+'''

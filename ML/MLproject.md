@@ -26,9 +26,10 @@
 : 사이킷런의 LinearRegression 클래스를 활용하여 선형 회귀 모델 생성  
 : 앞서 구현한 데이터 전처리 파이프라인(preprocessing 변환기)에 LinearRegression 예측기 추가  
 
-'''
+``` 
 from sklearn.linear_model import LinearRegression 
 
 lin_reg = make_pipeline(preprocessing, LinearRegression())
 lin_reg.fit(housing, housing_labels)
-'''
+
+```

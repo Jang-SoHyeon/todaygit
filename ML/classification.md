@@ -272,6 +272,44 @@ f1_score(y_train_5, y_train_pred)
 > - SVC (Support Vector Machine Classifier)  
 
 
+이진 분류기 여러 개를 사용하여 다중 클래스를 수행할 수 있는 방법  
+이진 분류기 여러 개를 활용한 다중 클래스 분류 전략  
+- 일대다 OvR(one-versus-the-rest)(= OvA(one-versus-all))  
+- 일대일 OvO(one-versus-one)
+
+<img src="../image/일대다와 일대일.png" width=40%>
+
+<b><일대다(OvR) 방식을 통한 다중 클래스 분류></b>  
+
+* 0~9 손글씨 숫자 이미지 분류 예
+- 이진 분류 방식을 0~9까지 각 숫자 클래스에 동일하게 적용  
+-> 0-detector, 1-detector, ..., 9-detector까지 총 10개 이진 분류기를 훈련  
+- 새로운 이미지 샘플이 주어지면 10개 이진 분류기를 각각 실행하여 decision score을 얻는다.  
+- 가장 높은 score가 관찰된 감지기의 클래스로 예측  
+(e.g., 2-detector의 decision score가 가장 높다면 숫자 2 이미지로 예측)  
+
+<b><일대일(OvO) 방식을 통한 다중 클래스 분류></b>  
+: 모든 가능한 2가지 클래스 조합 각각에 대해 이진 분류기를 훈련시키는 방법  
+
+* 0~9 손글씨 숫자 이미지 분류 예
+- 0-1 분류기, 0-2 분류기,..., 8-9 분류기 등 
+
+ !"
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #### 에러 분석   

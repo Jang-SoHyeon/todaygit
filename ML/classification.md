@@ -181,5 +181,5 @@ array([[53892,  687],
 
 
 - 재현율  
-<img src = "../image/재현율.png" width=70%>
+<img src = "../image/재현율.png" width=50%>
  

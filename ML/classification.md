@@ -279,26 +279,118 @@ f1_score(y_train_5, y_train_pred)
 
 <img src="../image/일대다와 일대일.png" width=40%>
 
-<b><일대다(OvR) 방식을 통한 다중 클래스 분류></b>  
+><b><일대다(OvR) 방식을 통한 다중 클래스 분류></b>  
+>  
+> * 0~9 손글씨 숫자 이미지 분류 예
+>- 이진 분류 방식을 0~9까지 각 숫자 클래스에 동일하게 적용  
+>-> 0-detector, 1-detector, ..., 9-detector까지 총 10개 이진 분류기를 훈련  
+>- 새로운 이미지 샘플이 주어지면 10개 이진 분류기를 각각 실행하여 decision score을 얻는다.  
+>- 가장 높은 score가 관찰된 감지기의 클래스로 예측  
+>(e.g., 2-detector의 decision score가 가장 높다면 숫자 2 이미지로 예측)  
 
-* 0~9 손글씨 숫자 이미지 분류 예
-- 이진 분류 방식을 0~9까지 각 숫자 클래스에 동일하게 적용  
--> 0-detector, 1-detector, ..., 9-detector까지 총 10개 이진 분류기를 훈련  
-- 새로운 이미지 샘플이 주어지면 10개 이진 분류기를 각각 실행하여 decision score을 얻는다.  
-- 가장 높은 score가 관찰된 감지기의 클래스로 예측  
-(e.g., 2-detector의 decision score가 가장 높다면 숫자 2 이미지로 예측)  
-
-<b><일대일(OvO) 방식을 통한 다중 클래스 분류></b>  
-: 모든 가능한 2가지 클래스 조합 각각에 대해 이진 분류기를 훈련시키는 방법  
-
-* 0~9 손글씨 숫자 이미지 분류 예
-- 0-1 분류기, 0-2 분류기,..., 8-9 분류기 등 
-
- !"#
+> <b><일대일(OvO) 방식을 통한 다중 클래스 분류></b>  
+> : 모든 가능한 2가지 클래스 조합 각각에 대해 이진 분류기를 훈련시키는 방법  
+>  
+> * 0~9 손글씨 숫자 이미지 분류 예
+> - 0-1 분류기, 0-2 분류기,..., 8-9 분류기 등, N=10 이므로 10 C 2 = 45개의 이진 분류기가 필요함  
+> - 새로운 이미지 샘플이 주어지면 45개 이진 분류기를 실행하여 가장 많이 예측된 클래스로 최종 예측  
+> (e.g., 숫자 1 클래스와 관련된 총 9개 분류기(0-1, 1-2, 1-3, 1-4, 1-5, 1-6, 1-7, 1-8, 1-9 분류기) 모두 숫자 1로 예측했다면 숫자 1로 최종 예측)  
+>  
+> 장점  
+> - 각 분류기의 훈련에 전체 훈련셋 중 구별할 두 클래스에 해당하는 샘플만 필요함  
 
 
+SVM(Support Vector Machine) 같은 일부 머신러닝 알고리즘은 훈련셋 크기에 민감함
+  - 큰 훈련셋으로 적은 수의 분류기를 훈련시키는 것보다 작은 훈련셋으로 많은 수의 분류기를 훈련 시키는 쪽이 빠름.
+  - 따라서 훈련셋 크기에 민감한 알고리즘에서는 OvO 전략이 선호됨
+  - 하지만 대부분의 이진 분류 알고리즘에서는 OvR 전략을 선호함  
 
+SVM Classifier 예  
+<b> SVC 클래스를 사용하여 SVM 분류기 훈련</b>
 
+```
+from sklearn.svm import SVC
+
+svm_clf = SVC(random_state=42)
+svm_clf.fit(X_train[:2000], y_train[:2000]) 
+# y_train_5가 아닌 0~9까지의 y_train을 사용해 훈련  
+# 처음 2000개 훈련 샘플들만으로 훈련(전체일 경우 시간이 많이 걸림)
+# 내부적으로 OvO전략을 사용해 45개 이진 분류기를 훈련시킴
+
+some_digit_scores = svm_clf.decision_function([some_digit])
+some_digit_scores.round(2)
+# 새로운 샘플(some_digit)에 대해 45개 이진 분류기를 실행해 클래스 별 결정 점수를 얻어 점수가 가장 높은 클래스를 최종 예측값으로 결정(e.g., 숫자 5 클래스)
+# 결과 : array([3.79, 0.73, 6.06, 8.3, -0.29, 9.3, 1.75, 2.77, 7.21, 4.82])
+class_id = some_digit_scores.argmax()
+class_id
+```
+```
+# 결과
+array([3.79, 0.73, 6.06, 8.3, -0.29, 9.3, 1.75, 2.77, 7.21, 4.82])
+5 (5번 인덱스가 9.3으로 점수가 가장 높음)
+```
+
+분류기가 훈련될 때 classes_속성에 타깃 클래스들의 리스트를 값을 기준으로 정렬하여 저장함.
+```
+svm_clf.classes_
+```
+```
+# 결과
+array(['0','1','2','3','4','5','6','7','8','9'], dtype=object)
+```
+```
+svm_clf.classes_[class_id]
+```
+```
+'5'
+```
+사이킷런에서 OvO나 OvR을 사용하도록 강제하려면 OneVsOneClassifier나 OneVsRestClassifier를 사용.  
+예. SVC 기반으로 OvR 전략을 사용하는 다중 분류기  
+```
+# 훈련
+from sklearn.multiclass import OneVsRestClassifier
+
+ovr_clf = OneVsRestClassifier(SVC(random_state=42))
+ovr_clf.fit(X_train[:2000], y_train[:2000])
+
+# 예측
+ovr_clf.predict([some_digit])
+len(ovr_clf.estimators_)
+```
+```
+# 결과
+array(['5'],dtype='<U1')
+10
+```
+
+SGDClassifier 사용 예  
+- SGDClassifier는 기본적으로 다중 클래스 분류를 지원하기 때문에 별도로 OvR이나 OvO를 적용할 필요가 없음  
+```
+# 훈련
+sgd_clf = SGDClassifier(random_state=42)
+sgd_clf.fit(X_train, y_train)
+
+# 예측
+sgd_clf.predict([some_digit])
+sgd_clf.decision_function([some_digit]).round() # 클래스 별 결정 점수 확인
+```
+```
+array(['3'], dtype='<U1')
+array([[-31893., -34420., -9531., 1824., -22320., -1386., -26189., -16148., -4604., 12051.]])
+```
+
+교차 검증을 통한 분류기 성능 평가  
+- 분류기 성능 평가에는 일반적으로 교차 검증을 사용함  
+- 0~9 손글씨 숫자 이미지 분류 문제의 경우 클래스 별 이미지 수가 균등하기 때문에 accuracy를 지표로 사용하면 됨
+```
+cross_val_score(sgd_clf, X_train, y_train, cv=3, scoring="accuracy")
+```
+```
+# 결과
+array([0.87365, 0.85835, 0.8689])
+```
+
+StandardScaler() 사용하여 특성 스케일링을 하면 성능이 향상 됨  
 
 
 

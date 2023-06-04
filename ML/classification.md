@@ -297,19 +297,25 @@ y_train_mod = X_train # 노이즈 추가 전 원본 이미지 샘플들
 y_test_mod = X_test # 노이즈 추가 전 원본 테스트셋 이미지 샘플들  
 ```
 <img src="../image/노이즈 추가 된 이미지와 원본 이미지.png" width=60%>
-
+ ㅣ
 ```
 # 노이즈 제거를 위한 KNN 분류기 모델 훈련  
 knn_clf = KNeighborsClassifier()
 knn_clf.fit(X_train_mod, y_train_mod)
 
 # 노이즈가 추가된 X_test_mod[0]에 대해 노이즈 제거 분류기 실행과 예측 결과 plotting  
+```
 clean_digit = knn_clf.predict([X_test_mod[0]])
 plot_digit(clean_digit())
 plt.show()
 ```
-결과  
-<img src="../image/노이즈 제거된 이미지.png" width=60%>
+<b>결과</b>
+  
+<img src="../image/노이즈 제거된 이미지.png" width=40%>  
+
+
+
+
 
 
 

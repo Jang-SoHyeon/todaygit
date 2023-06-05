@@ -63,7 +63,7 @@ from sklearn.linear_model import SGDClassifier
 sgd_clf = SGDClassifier(random_state=42)
 sgd_clf.fit(X_train, y_train_5)
 
-sgd_Clf.predict([some_digit]) #predict() 메소드 호출을 통해 주어진 이미지가 0 또는 1 중 어느 클래스에 해당하는지 예측  
+sgd_Clf.predict([some_digit]) # predict() 메소드 호출을 통해 주어진 이미지가 0 또는 1 중 어느 클래스에 해당하는지 예측  
 ```
   
 #### 분류기 성능 측정  
@@ -253,6 +253,38 @@ f1_score(y_train_5, y_train_pred)
 <임계값을 낮추면 정밀도는 떨어지지만 재현율은 높아짐>  
 <img src = "../image/임계값 변화 case3.png" width=50%>
 
+결정 임계값 찾기  
+(e.g., precision_recall_curve()함수를 통해 계산된 precisions, recalls, thresholds 배열을 이용해 재현율 0.8 이상을 충족시키기 위한 결정 임계값 최대치 찾기)  
+```
+idx_for_80_recall = (recalls >= 0.80.argmin())
+# recalls 배열은 값이 줄어드는 패턴
+# recalls 배열에서 값이 0.8 미만인 lowest index 확인
+thresholds[idx_for_80_recall-1] # idx_for_80_recall-1 인덱스의 위치의 임계값이 재현율 80% 이상을 충족시키기 위한 임계값 최대치에 해당
+y_train_pred_80_recall = (y_scores >= thresholds[idx_for_80_recall-1]) # 선택된 임계값으로 훈련셋 샘플들에 대한 예측 수행
+precision_score(y_train_5, y_train_pred_80_recall) # 타깃과 예측 클래스를 이용해 precision socre 계산
+recall_score(y_train_5, y_train_pred_80_recall) # 타깃과 예측 클래스를 이용하여 recall score 계산
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### Part 2  
@@ -277,7 +309,7 @@ f1_score(y_train_5, y_train_pred)
 - 일대다 OvR(one-versus-the-rest)(= OvA(one-versus-all))  
 - 일대일 OvO(one-versus-one)
 
-<img src="../image/일대다와 일대일.png" width=40%>
+<img src="../image/일대다와 일대일.png" width=50%>
 
 ><b><일대다(OvR) 방식을 통한 다중 클래스 분류></b>  
 >  
@@ -391,21 +423,85 @@ array([0.87365, 0.85835, 0.8689])
 ```
 
 StandardScaler() 사용하여 특성 스케일링을 하면 성능이 향상 됨  
-
-
-
-
-
-
-
-
-
-
-
+```
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train.astype("float64"))
+cross_val_score(sgd_clf, X_train_scaled, y_train, cv=3, scoring="accuracy")
+```
+```
+# 결과 
+array([0.8983, 0.891, 0.9018])
+```
 
 #### 에러 분석   
+: 최종적으로 선택된 모델이 어떤 종류의 예측 에러를 범하는지를 분석함으로써 모델의 성능을 추가적으로 향상시킬 방법을 모색  
+   
+> 실제 머신러닝 프로젝트라면  
+> - 데이터 분석 및 전처리 수행  
+> - 여러 종류의 머신러닝 모델을 시도해봄
+> - 성능이 우수한 몇 가지 모델을 추린 다음 그리드 탐색, 랜덤 탐색 등을 통한 하이퍼파라미터 튜닝 수행
+
+여기서는 위 과정을 통해 가장 성능이 좋은 모델을 하나 찾았다고 가정  
+- sgd_clf(SGDClassifier 객체)를 최종 선택된 모델로 가정  
+
+<b> 오차 행렬(Confusion Matrix) </b>
+
+- 오차 행렬을 분석하면 분류기의 성능 향상 방안에 대한 통찰을 얻을 수 있음
+(분류기의 예측 오류가 주로 어떤 케이스들에 대해서 발생하는지를 확인할 수 있음)  
+
+```
+from sklearn.metrics import ConfusionMatrixDisplay
+
+# 교차 검증을 통해 훈련 샘플들에 대한 분류기의 예측 결과를 생성(y_train_pred)
+y_train_pred = cross_val_predict(sgd_clf, X_train_scaled, y_train, cv=3 )
+# 분류기의 예측 값과 실제 타깃 데이터를 입력으로 오차 행렬 생성
+ConfusionMatrixDisplay.from_predictions(y_train, y_train_pred)
+plt.show()
+```
+<img src = "../image/오차 행렬2.png" width=50%>
+
+5번 행이 상대적으로 어두운 것에 대한 가능한 이유  
+- 이는 숫자 5 이미지에 대한 분류 정확도가 상대적으로 낮기 때문일 수 있음
+- 데이터셋에 숫자 5 이미지 수 자체가 적기 때문일 수 있음
+-> 원인을 명확하게 파악하기 위해서는 <b> 오차 행렬에 대한 정규화가 필요</b>  
+
+```
+ConfusionMatrixDisplay.from_predictions(y_train, y_train_pred, normalize = "true", values_format = ".0%")
+plt.show()
+```
+<img src = "../image/정규화된 오차 행렬.png" width=50%>
+L 오른쪽 그림 : 각 행 별로 퍼센티지 합이 100이 되도록 정규화 적용  
+
+올바른 분류 케이스들은 제외하고 잘못 분류된 케이스들만에 대한 비율 분석  
+<img src = "../image/행 정렬화 오차 행렬.png" width=50%>
+
+- 각 행 별 퍼센티지 합이 100이 되도록 정규화 됨
+- 숫자 8로 잘못 분류되는 비율이 가장 높음.
+(잘못 예측한 샘플들 중 34%가 8로 잘못 예측된 케이스들이었으며, 36%가 9로 잘못 예측된 케이스들이었음을 의미)  
 
 
+<img src = "../image/열 정렬화 오차 행렬.png" width=50%>
+
+- 각 컬럼 별 퍼센티지 합이 100이 되도록 정규화 됨
+(컬럼 7을 보면, 7로 잘못 분류된 케이스들 중 56%가 실제 숫자 9 이미지들이었음을 의미)  
+
+위의 오차 행렬을 보면 8로 잘못 분류되는 케이스들을 줄이도록 분류기를 개선할 필요가 있어보임  
+=> 실제 8이 아니지만 8처럼 보이는 이미지 샘플들을 더 많이 모아서 실제 8과 구분하도록 분류기를 추가적으로 학습시킬 수 있음
+=> 분류기에 도움이 될 만한 특성을 찾아서 추가하는 방안도 생각해 볼 수 있음  
+(e.g., 숫자 이미지에 포함된 동심원의 수를 카운트해서 특성으로 추가(8은 2개, 6은 1개, 5는 0개 등))
+  
+<img src = "../image/숫자3과 5 이미지들 개별 오류 확인.png" width=50%>
+
+- 분류기가 잘못 분류한 이미지들 중 일부는 정말 잘못 쓰여 있어서 사람도 분류하기 어려워 보임
+- 하지만 대부분의 잘못 분류된 이미지들은 확실히 예측 에러인 것으로 보임
+- 그 원인은 단순한 형태의 선형 모델인 SGDClassifier를 사용했기 때문으로 예측 성능이 떨어지는 것으로 추정 됨
+
+데이터 증식(Data Augmentation)  
+: 보다 좋은 성능의 모델을 사용할 수도 있지만 기본적으로 보다 많은 훈련 이미지가 필요하다.
+: 기존 데이터셋의 이미지를 조금씩 회전하거나, 뒤집거나, 이동시키는 방식 등으로 생성된 이미지를 훈련셋에 추가할 수 있음
+
+<hr>
 
 다중 클래스 분류 일반화  
 - 다중 레이블 분류(multiabel classification)  

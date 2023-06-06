@@ -72,7 +72,7 @@ MSE($X,h_\theta$) = $\left(\frac{1}{3}\right)\displaystyle\sum_{i=1}^{m} (\theta
 - $x^{(i)}$ : 훈련셋 내 i번째 샘플의 특성 벡터. (n+1)x1의 열 벡터  
 - $y^{(i)}$ : i번쨰 훈련 샘플의 타깃/레이블  
 
-RMSE$(X, h)$  
+RMSE $(X, h)$  
  $ = \sqrt{(\displaystyle\sum_{i=1}^{m} (h(x^{(i)}) - y^{(i)}))^2}$
 
 

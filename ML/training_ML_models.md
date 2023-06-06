@@ -112,3 +112,44 @@ L 선형 회귀 : 1차 선형 회귀 모델
   
 <img src = "../image/다항회귀 2차 다항식 모델.png" width=60%>
 L 다항 회귀 : 2차 다항식 모델
+
+
+**사이킷런의 PolynomialFeatures 변환기**  
+: 주어진 훈련셋에 포함된 특성들 각각의 거듭제곱과 특성들 간의 곱셈을 실행하여 새로운 특성을 추가하는 기능 제공  
+degree = d
+: 몇 차 다항식 모델에 해당하는 새로운 특성들을 추가 생성할지를 지정하는 하이퍼파라미터
+> 예시
+>- 훈련셋 특성 수 = 1, degree=2인 경우
+ 기존 특성 :  $x_1$  
+ 새로운 특성 : $x_1^2$  
+>- 훈련셋 특성 수 = 2, degree=2인 경우  
+기존 특성 : $x_1, x_2$  
+새로운 특성 : $x_1^2, x_1x_2, x_2^2
+>- 훈련셋 특성 수 = 2, degree=3인 경우  
+기존 특성 : $x_1, x_2$
+새로운 특성 : $x_1^2, x_1x_2, x_2^2, x_1^3, x_1^2x_2, x_1x_2^2, x_2^3  
+
+```
+from sklearn.preprocessing import PolynomailFeatures
+poly_features = PolynomialFeatures(degree=2, include_bias=False)
+X_poly = poly_features.fit_transform(X) # 새로운 특성 추가를 통해 확장된 훈련셋
+
+X[0]
+x_poly[0]
+```
+```
+# 결과
+array([-0.75275929])
+array([-0.75275929, 0.56664654])
+```
+
+```
+#확장된 훈련셋을 이용하여 선형 회귀 모델 훈련
+lin_reg = LinearRegression()
+lin_reg.fit(X_poly, y)
+lin_reg.intercept_, lin_reg.coef_
+```
+```
+# 결과
+(array([1.78134581]), array([0.93366893, 0.56456263]))
+```

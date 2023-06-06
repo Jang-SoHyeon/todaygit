@@ -44,6 +44,10 @@ $\hat{y} = h_\theta(x) = \theta \cdot x$
     - x는 (n+1)x1의 열 벡터
 
 
+||표기법|shape|
+|:-----:|:----:|:---:|
+|ㅇㅇ|ㅇㅇ|ㅇㅇ|
+
 
 #### 경사 하강법(Gradient Descent)
 

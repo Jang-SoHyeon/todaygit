@@ -253,8 +253,45 @@ f1_score(y_train_5, y_train_pred)
 <임계값을 낮추면 정밀도는 떨어지지만 재현율은 높아짐>  
 <img src = "../image/임계값 변화 case3.png" width=50%>
 
-결정 임계값 찾기  
-(e.g., precision_recall_curve()함수를 통해 계산된 precisions, recalls, thresholds 배열을 이용해 재현율 0.8 이상을 충족시키기 위한 결정 임계값 최대치 찾기)  
+```
+y_scores = cross_val_predict(sgd_clf, X_train, y_train_5, cv=3, method="decision_function")
+# k-fold 교차 검증 수행하며 결과로는 훈련셋의 각 인스턴스에 대해 decision function을 통해 계산된 점수를 반환
+
+from sklearn.metrics import precision_recall_curve
+
+precisions, recalls, thresholds = precision_recall_curve(y_train_5, y_scores)
+# 모든 가능한 결정 임계값에 대해 SGD 분류기의 precision과 recall을 계산해서 반환
+```
+< 결정 임계값에 따른 정밀도와 재현율 그래프 >
+
+<img src = "../image/결정 임계값에 따른 정밀도와 재현율 그래프.png" width=50%>
+
+- 세로 방향 점선으로 표시된 결정 임계값을 사용할 경우 대략 90% 정밀도와 50% 재현율을 달성함  
+- 결정 임계값이 아주 클 때 일시적으로 정밀도가 떨어질 수 있지만 결국엔 상승
+
+< 재현율 대 정밀도 그래프 >
+  
+<img src = "../image/재현율 대 정밀도 그래프.png" width=50%>
+
+
+* 결정 임계값 찾기  
+
+e.g.1, precision_recall_curve()함수를 통해 계산된 precisions, recalls, thresholds 배열을 이용해 재현율 0.9 이상을 충족시키기 위한 결정 임계값 최소치 찾기  
+  
+```
+idx_for_90_precision = (precisions >= 0.90.argmax())
+# precision 배열에서 값이 0.9 이상인 lowest index 확인
+threshold_for_90_precision = thresholds[idx_for_90_precision]
+# 확인된 index 위치에 해당하는 결정 임계값을 thresholds 배열에서 확인하면 그 임계값이 정밀도 0.9 이상을 충족시키는 임계값 최소치임
+threshold_for_90_precision
+```
+```
+# 결과
+3370.0194991439557
+```
+
+e.g.2, precision_recall_curve()함수를 통해 계산된 precisions, recalls, thresholds 배열을 이용해 재현율 0.8 이상을 충족시키기 위한 결정 임계값 최대치 찾기  
+  
 ```
 idx_for_80_recall = (recalls >= 0.80.argmin())
 # recalls 배열은 값이 줄어드는 패턴
@@ -265,26 +302,47 @@ precision_score(y_train_5, y_train_pred_80_recall) # 타깃과 예측 클래스�
 recall_score(y_train_5, y_train_pred_80_recall) # 타깃과 예측 클래스를 이용하여 recall score 계산
 ```
 
+* ROC 곡선
+: ROC(receiver operating characteristic) 곡선은 결정 임계값이 달라짐에 따라 FPR과 TPR의 변화 추이를 보여주는 곡선
+  - TPR(true positive rate): 재현율의 또 다른 명칭   
+  - FPR(false positive rate) : 실제 negative 클래스에 해당하는 모든 샘플들 중 positive로 잘못 예측된 비율 (FPR = FP / (FP + TP))  
+: ROC 곡선은 이진 분류기 성능 평가에 널리 사용됨.  
+: ROC 곡선을 그리려면 모든 가능한 임계값에 대해 FPR과 TPR을 계산해야 함.
+```
+from sklearn.metrics import roc_curve
+
+fpr, tpr, thresholds = roc_curve(y_train_5, y_scores)
+# roc_curve() 함수를 이용하면 모든 가능한 임계값에 대한 FPR과 TPR계산 가능
+```
+
+SGD 분류기에 대한 ROC 곡선
+- FPR과 TPR(재현율)은 비례관계 (결정 임계값 조정을 통해 TPR을 높이면 FPR 증가)
+- 좋은 분류기이기 위해서는 FPR은 최대한 낮게 유지하면서 높은 수준의 TPR에 도달할 수 있어야 함
+- 좋은 분류기의 ROC 곡선은 top-left 코너에 근접하게 됨  
+<img src = "../image/ROC 곡선과 AUC.png" width=50%>
+
+AUC(area under the curve)  
+: ROC 곡선의 AUC는 ROC 곡선 아래의 면적을 위미함  
+: AUC가 1에 가까울 수록 좋은 성능의 분류기로 평가됨  
+
+<b> ROC 곡선 vs 정확도/재현율 곡선 </b>
+
+> 정확도/재현율 곡선이 선호되는 경우
+> - 전체 샘플들 중 positive 클래스에 해당하는 샘플들이 드문 경우
+> - false negative 보다 false positive가 더 문제되는 경우
+>(e.g., 아이가 시청해도 되는 안전한 동영상 분류기 - 아이가 보면 안되는 위험한 동영상(negative 클래스)인데 안전한 것(positive 클래스)으로 분류되는 것이 더 심각함)
 
 
+> 나머지 경우 ROC 곡선이 선호됨 
 
 
+정확도/재현율 곡선을 이용한 분류기 성능 비교
+- 좋은 분류기이기 위해서는 높은 수준의 recall에서도 높은 수준의 precision을 유지할 수 있어야 함
+- 분류기의 정확도/재현율 곡선이 top-right 코너에 근접할 수록 좋은 성능의 분류기로 평가됨
+( 정확도/재현율 곡선의 AUC 또한 1에 가까울 수록 좋은 분류기라는 의미)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+SGD 분류기 vs Random Forest 분류기
+<img src = "../image/SGD분류기 vs Random Forest 분류기.png" width=50%>
 
 
 ### Part 2  
@@ -549,11 +607,4 @@ plt.show()
 <b>결과</b>
   
 <img src="../image/노이즈 제거된 이미지.png" width=25%>  
-
-
-
-
-
-
-
 

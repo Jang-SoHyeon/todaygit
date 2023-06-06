@@ -34,7 +34,7 @@ $\hat{y} = \theta_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_nx_n$
 
 
 <b>선형 회귀 모델 : 벡터 형태 표현</b>  
-$\hat{y} = h_theta(x) = \theta \cdot x$
+$\hat{y} = h _theta(x) = \theta \cdot x$
 
 
 #### 경사 하강법(Gradient Descent)

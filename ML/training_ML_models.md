@@ -26,7 +26,7 @@
 : 입력 특성의 가중치 합(weighted sum)과 편향(blas term)이라는 상수를 더해 예측을 만듦
 - 
 
-$\hat{y}$
+$$\hat{y}$$
 
 
 

@@ -29,7 +29,7 @@ $\hat{y} = \theta_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_nx_n$
 - n : 각 샘플의 특성 수 
 - $x_i (1<= i <= n)$ : 샘플의 i번째 특성 값
 - $\theta_j (0<=j<=n)$ : j번째 모델 파라미터
-    - $\theta_1\cdots\th(eta_n$ : 대응되는 입력 특성 $x_i$에 곱해지는 가중치(weight)
+    - $\theta_1\cdots\theta_n$ : 대응되는 입력 특성 $x_i$에 곱해지는 가중치(weight)
     - $\theta_0$ : bias term(편향)
 
 

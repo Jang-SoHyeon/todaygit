@@ -21,7 +21,7 @@
 #### 선형 회귀(Linear Regression)
 
 선형 회귀 모델 : n개의 입력 특성을 사용하여 주어진 샘플의 타깃/레이블을 에측하는 선형 회귀 모델  
-$\hat{y} = theta_0 + theta_1$ 
+$\hat{y} = \theta_0 + \theta_1$ 
 
 
 #### 경사 하강법(Gradient Descent)

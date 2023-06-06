@@ -36,7 +36,7 @@ $\hat{y} = \theta_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_nx_n$
 <b>선형 회귀 모델 : 벡터 형태 표현</b>  
 $\hat{y} = h_\theta(x) = \theta \cdot x$
 
-- $h_/theta()$ : 선형 회귀 모델의 예측 함수  
+- $h_\theta()$ : 선형 회귀 모델의 예측 함수  
 - $\theta : \theta_0 ~ \theta_n$으로 이루어진 모델
 - $x : 주어진 샘플의 입력 특성 벡터(x_0부터 x_n으로 구성되며, x_0=1이 추가 됨. (n+1)x1의 벡터)$
 - &\theta\cdotx = \theta_0x_0 + \theta_1x_1 + \cdots + \theta_nx_n = \theta^tx(\theta^t와 x의 행렬 곱셈)$

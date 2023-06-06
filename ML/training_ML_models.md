@@ -20,7 +20,8 @@
 
 #### 선형 회귀(Linear Regression)
 
-선형 회귀 모델 : n개의 입력 특성을 사용하여 주어진 샘플의 타깃/레이블을 에측하는 선형 회귀 모델  
+<b>선형 회귀 모델</b>  
+: n개의 입력 특성을 사용하여 주어진 샘플의 타깃/레이블을 에측하는 선형 회귀 모델  
 $\hat{y} = \theta_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_nx_n$
 
 - 입력 특성 가중치 합(weighted sum)과 편향(bias term)이라는 상수를 더해 예측을 만듦  
@@ -32,6 +33,8 @@ $\hat{y} = \theta_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_nx_n$
     - $\theta_0$ : bias term(편향)
 
 
+<b>선형 회귀 모델 : 벡터 형태 표현</b>  
+$\hat{y} = h_theta(x) = theta /cdot x
 
 
 #### 경사 하강법(Gradient Descent)

@@ -4,6 +4,8 @@
 3. [Part 3](#part-3)  
     3-1. [머신러닝 모델 선택과 훈련](#머신러닝-모델-선택과-훈련)  
     3-2. 모델 세부 튜닝
+
+    
 ### part 3
 #### 머신러닝 모델 선택과 훈련<br>
 ><b>진행 중인 프로젝트 개요</b> 
@@ -31,5 +33,6 @@ from sklearn.linear_model import LinearRegression
 
 lin_reg = make_pipeline(preprocessing, LinearRegression())
 lin_reg.fit(housing, housing_labels)
-
+# housing : 훈련 샘플들에 대한 입력 특성(predictors)
+# housing_labels : 훈련 샘플들에 대한 타깃(레이블) 특성
 ```

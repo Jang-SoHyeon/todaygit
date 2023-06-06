@@ -2,7 +2,15 @@
 ## 목차
 1. A1 Injection  
     1-1 [(A1) Injection(intro)](#sql-injectionintro)  
-    1-2 [(A2) SQL Injection(advanced)](#sql-injectionadvanced)  
+2.  
+3.  
+4.  
+5.  
+6.  
+7. A7 Cross-Site Scripting(XSS)  
+    7-1 [Cross Site Scripting
+](#a7-cross-site-scriptingxss)  
+
 ## (A1) Injection
 ### SQL Injection(intro)
 <b>[1]</b>   
@@ -75,4 +83,20 @@ SQL injection란?
 Smith
 3SL99A';
 update employees set SALARY=83700 where last_name='Smith'--
-### SQL Injection(advanced)
+
+
+## (A7) Cross-Site Scripting(XSS)
+### Cross Site Scripting
+<b>[1]</b>   
+7-1에서 배울 것  
+
+- XSS(Cross-Site-Scripting)이란 무엇인가  
+- 개발자의 원래 의도가 아닌 작업을 수행하도록 조작하는 방법
+
+<b>[2 개념]</b>  
+XSS란?  
+: 취약점/결함  
+: 가장 일반적이고 치명적인 웹 애프리케이션 보안 문제   
+: 자바스크립트를 통해 연결된 권한 있는 함수 호출 훼손될 수 있고, 제대로 보호되지 않으면 중요한 데이터(ex: 인증 쿠키)가 도용되어 다른 사용자의 용도로 사용될 수 있다.  
+
+

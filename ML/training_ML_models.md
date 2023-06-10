@@ -131,7 +131,9 @@ $\hat{y} = \theta_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_nx_n$
 : (n+1)-차원 공간 상의 한 point를 나타내며, 방향과 크기에 대한 정보를 제공  
 : 그레이언트 벡터가 가리키는 방향의 반대 방향으로 모델 파라미터 벡터 $\theta$를 조정함으로써 비용함수의 최소값에 접근해갈 수 있음 
 <gradient descent step>  
-<img src = "../imaeg/Gradient descent step.png" width = 50%>
+
+<img src = "../imaeg/Gradient descent step.png" width = 50%> 
+
 $\eta$(eta)는 학습률(learning rate)  
 : 다음 식을 통해 주어진 (고정값) 훈련 데이터(X,y)와 특정 모델 파라미터 값 $\theta$ 일 때 그레디언트 벡터를 계산할 수 있다.  
 <img src = "../image/그레디언트 벡터.png" width = 50%>

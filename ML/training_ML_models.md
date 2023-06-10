@@ -420,9 +420,9 @@ blue line (검증 세트에 대한 성능)
 - 규제항은 모델의 가중치 벡터 w에 대한 $l_2$ norm의 제곱에 해당함 $\left(\frac{\alpha}{m}\right)\displaystyle\sum_{i=1}^{n}(\theta_i^2) $
 - 이런 이유에서 릿지 회귀의 규제를 $l_2$ regularization 이라고 부름  
   
-$\alpha$: 규제 강도 지정
-($\alpha$ = 0이면 규제가 전혀 없는 기본 선형 회귀의 비용 함수와 동일)
-($\alpha$가 커질 수록 가중치의 역할이 줄어듦.-> 릿지회귀의 비용을 줄이기 위해 가중치를 작게 유지하는 방향으로 학습이 이루어짐)  
+$\alpha$: 규제 강도 지정  
+($\alpha$ = 0이면 규제가 전혀 없는 기본 선형 회귀의 비용 함수와 동일)  
+($\alpha$가 커질 수록 가중치의 역할이 줄어듦.-> 릿지회귀의 비용을 줄이기 위해 가중치를 작게 유지하는 방향으로 학습이 이루어짐)    
   
 (주의사항 : 릿지 회귀는 입력 특성의 스케일에 민감하기 때문에 훈련 전의 특성들의 스케일을 통일 시키는 것이 중요함 (e.g., StandardScaler를 이용해서) )
 
@@ -430,7 +430,7 @@ $\alpha$: 규제 강도 지정
 $\parallel v\parallel_k = (|v_1|^k + |v_2|^k + \cdots + |v_n|^k)^{\left(\frac{1}{k}\right)} $  
 
 $l_2$ norm of a vector v  
-$\parallel v\parallel_2 = (|v_1|^k + |v_2|^k + \cdots + |v_n|^k)^{\left(\frac{1}{k}\right)} $    
+$\parallel v\parallel_2 = \sqrt{(|v_1|^2 + |v_2|^2 + \cdots + |v_n|^2)} $    
 
 
 - 라쏘 회귀

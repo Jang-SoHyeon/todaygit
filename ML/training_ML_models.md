@@ -430,7 +430,7 @@ $\alpha$: 규제 강도 지정
 $\parallel v\parallel_k = (|v_1|^k + |v_2|^k + \cdots + |v_n|^k)^{\left(\frac{1}{k}\right)} $  
 
 $l_2$ norm of a vector v  
-$\parallel v\parallel = (|v_1|^k + |v_2|^k + \cdots + |v_n|^k)^{\left(\frac{1}{k}\right)} $    
+$\parallel v\parallel_2 = (|v_1|^k + |v_2|^k + \cdots + |v_n|^k)^{\left(\frac{1}{k}\right)} $    
 
 
 - 라쏘 회귀

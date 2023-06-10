@@ -135,7 +135,9 @@ $\hat{y} = \theta_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_nx_n$
 <img src = "../imaeg/Gradient descent step.png" width = 50%> 
 
 $\eta$(eta)는 학습률(learning rate)  
+
 : 다음 식을 통해 주어진 (고정값) 훈련 데이터(X,y)와 특정 모델 파라미터 값 $\theta$ 일 때 그레디언트 벡터를 계산할 수 있다.  
+  
 <img src = "../image/그레디언트 벡터.png" width = 50%>
  
 학습률(lerning rate, $eta$)  
@@ -147,16 +149,20 @@ e.g., 경사 하강법에 의한 선형 회귀 모델 파라미터 조정 과정
 - 그레디언트 벡터의 크기(norm)이 허용오차(tolerance)보다 작은지 확인  
 -> 만약 작다면, 비용함수의 최소값에 근접했음을 의미하며 최적의 모델 파라미터를 찾은 것이므로 훈련 과정을 멈춤  
 -> 아니라면, 
+
 <img src = "../imaeg/Gradient descent step.png" width = 50%>
 
 경사 하강법에서 학습률이 너무 작으면 비용함수의 전역 최소값에 도달하기까지 
 시간이 오래 걸림   
+
 <img src = "../imaeg/학습률이 작을 경우 비용함수.png" width = 50%>
 
 너무 크면 비용함수의전역 최소값에 도달하지 못 할 수 있음  
+
 <img src = "../imaeg/학습률이 클 경우 비용함수.png" width = 50%>
 
 모델 비용함수 곡선이 아래와 같으면 경사 하강법 알고리즘 실행 결과로 전역 최소값이 아닌 지역 최소값으로 귀결될 수 있음
+
 <img src = "../imaeg/독특한 모델 비용함수 곡선.png" width = 50%>  
 
 * 선형 회귀 모델의 비용함수는 convex function에 해당함

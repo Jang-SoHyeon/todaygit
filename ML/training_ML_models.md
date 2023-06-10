@@ -278,7 +278,7 @@ lin_reg.intercept_, lin_reg.coef_
 (훈련이 진행되는 동안 주기적으로 훈련셋과 검증셋에 대한 모델의 성능을 추천)  
 :학습 곡선 모양에 따라 과소 적합/ 과대 적합 판정 가능  
 
-**과소 적합 모델의 학습 곡선 특징 **
+**과소 적합 모델의 학습 곡선 특징**  
 
 <img src="../image/%EA%B3%BC%EC%86%8C%EC%A0%81%ED%95%A9%20%EB%AA%A8%EB%8D%B8%EC%9D%98%20%ED%95%99%EC%8A%B5%20%EA%B3%A1%EC%84%A0.png" width = 60%>
 
@@ -292,9 +292,10 @@ blue line (검증 데이터에 대한 validation error)
 -> 훈련셋 사이즈가 일정 수준에 도달하면 valid error가 더 이상 나아지지 않음   
 -> 검증 세트에 대한 성능이 훈련 세트에 대한 성능과 거의 비슷해짐  
 
-**과대적합 모델의 학습 곡선 특징**
-<img src = "../image/과대적합 모델.png" width = 50%>  
+**과대적합 모델의 학습 곡선 특징**  
 
+<img src = "../image/과대적합 모델.png" width = 50%>   
+  
 red line (훈련 샘플들에 대한 training error)  
 : 훈련셋에 대한 RMSE가 과소적합 모델 경우보다 상대적으로 매우 낮음  
 

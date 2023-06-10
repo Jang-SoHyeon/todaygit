@@ -98,7 +98,7 @@ $\hat{\theta} = X^+y$
   
 (훈련 시 보용함수(MSE)에 입력으로 주어지는 훈련 데이터는 고정값으로 간주되며, 반면에 비용함수의 모델 파라미터가 변수에 해당함)
   
-MSE($X,h_0)= \left(\frac{1}{m}\right)\displaystyle\sum_{i=1}^{m} ((\theta_Tx^{(i)}-y^{(i)})^2)$  
+MSE($X,h_0)= \left(\frac{1}{m}\right)\displaystyle\sum_{i=1}^{m} ((\theta^Tx^{(i)}-y^{(i)})^2)$  
 최종목표 : 비용 함수의 minimum에 도달할 수 있는 모델 파라미터 값 조합 찾기  
 
   

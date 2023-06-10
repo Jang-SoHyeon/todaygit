@@ -132,7 +132,7 @@ $\hat{y} = \theta_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_nx_n$
 : 그레이언트 벡터가 가리키는 방향의 반대 방향으로 모델 파라미터 벡터 $\theta$를 조정함으로써 비용함수의 최소값에 접근해갈 수 있음 
 <gradient descent step>  
 
-<img src = "../imaeg/Gradient descent step.png" width = 50%> 
+<img src = "../image/Gradient descent step.png" width = 50%> 
 
 $\eta$(eta)는 학습률(learning rate)  
 
@@ -150,16 +150,16 @@ e.g., 경사 하강법에 의한 선형 회귀 모델 파라미터 조정 과정
 -> 만약 작다면, 비용함수의 최소값에 근접했음을 의미하며 최적의 모델 파라미터를 찾은 것이므로 훈련 과정을 멈춤  
 -> 아니라면, 
 
-<img src = "../imaeg/Gradient descent step.png" width = 50%>
+<img src = "../image/Gradient descent step.png" width = 50%>
 
 경사 하강법에서 학습률이 너무 작으면 비용함수의 전역 최소값에 도달하기까지 
 시간이 오래 걸림   
 
-<img src = "../imaeg/학습률이 작을 경우 비용함수.png" width = 50%>
+<img src = "../image/학습률이 작을 경우 비용함수.png" width = 50%>
 
 너무 크면 비용함수의전역 최소값에 도달하지 못 할 수 있음  
 
-<img src = "../imaeg/학습률이 클 경우 비용함수.png" width = 50%>
+<img src = "../image/학습률이 클 경우 비용함수.png" width = 50%>
 
 모델 비용함수 곡선이 아래와 같으면 경사 하강법 알고리즘 실행 결과로 전역 최소값이 아닌 지역 최소값으로 귀결될 수 있음
 

@@ -427,8 +427,10 @@ $\alpha$: 규제 강도 지정
 (주의사항 : 릿지 회귀는 입력 특성의 스케일에 민감하기 때문에 훈련 전의 특성들의 스케일을 통일 시키는 것이 중요함 (e.g., StandardScaler를 이용해서) )
 
 일반적으로 n 요소들을 포함하는 벡터 v의 벡터값(norm) $l_k$ ($v_i, 1<= i <= n$)    
-$\parallel v\parallel = (|v_1|^k + |v_2|^k + cdots + |v_n|^k)^{\left(\frac{1}{k}\right)} $
+$\parallel v\parallel_k = (|v_1|^k + |v_2|^k + \cdots + |v_n|^k)^{\left(\frac{1}{k}\right)} $  
 
+$l_2$ norm of a vector v  
+$\parallel v\parallel = (|v_1|^k + |v_2|^k + \cdots + |v_n|^k)^{\left(\frac{1}{k}\right)} $    
 
 
 - 라쏘 회귀

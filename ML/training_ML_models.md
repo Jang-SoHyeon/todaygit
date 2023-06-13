@@ -4,10 +4,10 @@
     1-2 [경사 하강법(Gradient Descent)](#경사-하강법gradient-descent)  
     1-3 [다항 회귀(Polynomial Regression)](#다항-회귀polynomial-regression)
 2. [Part 2](#part-2)  
-    2-1 [규제를 사용하는 선형 회귀 모델](#규제regularization를-사용하는-선형-회귀-모델)
-    2-2 [로지스틱 회귀](#로지스틱-회귀logistic-regression)
-    2-3 [결정 경계](#결정-경계)
-    2-4 [소프트맥스 회귀](#소프트맥스-회귀softmax-regression)
+    2-1 [규제를 사용하는 선형 회귀 모델](#규제regularization를-사용하는-선형-회귀-모델)  
+    2-2 [로지스틱 회귀](#로지스틱-회귀logistic-regression)  
+    2-3 [결정 경계](#결정-경계)  
+    2-4 [소프트맥스 회귀](#소프트맥스-회귀softmax-regression)  
 
 
 ### Part 1
@@ -431,11 +431,39 @@ $\parallel v\parallel_k = (|v_1|^k + |v_2|^k + \cdots + |v_n|^k)^{\left(\frac{1}
 
 $l_2$ norm of a vector v  
 $\parallel v\parallel_2 = \sqrt{(|v_1|^2 + |v_2|^2 + \cdots + |v_n|^2)} $    
+$l_2$ norm of a vector v  
+$\parallel v\parallel_1 = |v_1| + |v_2| + \cdots + |v_n| $   
+<img src = "../image/다양한 규제 강도를 사용한 단순 릿지 모델.png" width=50%>
+(L 선형적인 형태로 예측을 만드는 단순 릿지 모델에 다양한 규제 강도 $\alpha$를 적용)  
+<img src = "../image/다양한 규제 강도를 적용한 릿지 규제.png" width=50%>  
+(L 릿지 규제가 적용되는 다항 회귀 모델에 다양한 규제 강도 $\alpha$를 적용)  
+- PolnomialFeatures(degree=10)으로 데이터 확장 후 StandardScaler를 사용해 특성 스케일 후 릿지 모델 적용  
 
+=> $\alpha$가 커질수록 모델의 variance는 줄어들고 bias는 커지는 경향  
+  
+- 라쏘 회귀 
+<img src = "../image/라쏘 회귀 비용함수.png" width=50%>  
+- 규제항은 모델의 가중치 벡터 w에 대한 $l_1$ norm에 해당함 (2$\alpha\parallel w \parallel_1$)  
+- 이런 이유로 라쏘 회귀의 규제를 $l_1$ regularization이라고도 부름
+    
+  $\alpha$ = 0이면 규제가 전혀 없는 기본 선형 회귀의 비용 함수와 동
+  일
+  
+주요 특징 
+: 중요도가 낮은 특성에 대한 가중지 $\theta_i$가 0이 되도록 학습이 유도되는 경향  
+: 릿지 회귀보다 더 과감한 규제가 가해지는 경향이 있음
 
-- 라쏘 회귀
+<img src = "../image/라쏘 회귀.png" width = 50%>  
+오른쪽 그래프에서 $\alpha$ = 0.01 경우는 거의 3차 방정식 곡선이며, 이는 높은 차수(higher degree)의 다항 특성에 대응되는 가중치 파라미터가 모두 0으로 설정되었음을 의미  
+   
+- 엘라스틱넷  
+: 릿지 회귀와 라쏘 회귀를 절충한 모델  
+비용 함수 
+<img src = "../image/엘라스틱넷의 비용함수.png" width = 50%>
+- 릿지/라쏘 회귀의 규제항이 모두 포함됨    
+- 릿지/라쏘 규제 적용 비율은 r에 의해 조절.  
+(r = 0이면 릿지 회귀와 동일, r = 1이면 라쏘 회귀와 동일)  
 
-- 엘라스틱넷
 
 **규제 적용의 일반적인 원칙**
 : 적어도 약간의 규제가 적용되는 것이 대부분의 경우 바람직함. (규제가 없는 평범한 선형 회귀는 피해야 함)  
@@ -451,12 +479,94 @@ $\parallel v\parallel_2 = \sqrt{(|v_1|^2 + |v_2|^2 + \cdots + |v_n|^2)} $
 조기 종료(Early Stopping)  
 : 모델이 훈련셋에 과대 적합되는 것을 방지하기 위해 훈련을 적절한 시기에 중단시키는 기법    
 : 검증 데이터에 대한 예측 에러가 줄어 들다가 다시 커지는 순간 훈련 종료  
+: 경사 하강법같은 iterative 학습 알고리즘을 규제하는 또 다른 방법    
+: 모델 훈련셋에 과대 적합되는 것을 방지하기 위해 지정된 에포크까지 진행하지 않고 중간에 적절한 시기에 훈련을 중단시키는 기법  
+: 검증셋에 대한 비용함수 값이 줄어 들다가 다시 커지는 순간 훈련 종료    
 
+<img src = "../image/조기종료.png" width = 50%>
 확률적 경사 하강법이나 미니 배치 경사 하강법의 경우 예측 에러 곡선이 그리 매끄럽지 않아 최소값에 도달했는지 판단이 어려울 수 있음  
 ( 해결 방안 ) 검증 에러가 기존에 도달했던 최소값보다 한동안 높게 유지될 때(즉, 모델이 더 나아지지 않는다는 확신이 들 때) 학습을 멈추고 기억해둔 최적의(최소 검증 에러에 대응되는) 모델 파라미터로 되돌린다. 
 
+```
+#PolynomialFeatures와 StandardScaler 변환기로 구성된 파이프랑니 생성
+preprocessing = make_pipeline(PolynomialFeatures(degree=0, include_bias=False), StandardScaler())
+
+# X_train과 X_valid에 변환 파이프라인 적용
+X_train_prep = preprocessing.fit_transform(X_train)
+X_valid_prep = preprocessing.transform(X_valid)
+
+#SGDRegressor 생성
+sgd_reg = SGDRegressor(penalty=None, eta0=0.002, random_state=42)
+n_epochs = 500
+best_valid_rmse = float('inf') # 양의 무한대로 초기화
+
+train_errors, val_errors = [], [] # extra code - it's for the figure below
+
+"""
+n_epochs 동안 sgd_reg에 대한 훈련 과정을 진행하면서 best validation error에 해당하는 모델을 찾는다. 매 epoch마다 검증셋에 대한 RMSE 측정하여 best_valid_rmse보다 작은지 비교
+"""
+for epochin range(n_epochs):
+    sgd_reg.partial_fit(X_train_prep, y_train) #sgd_reg.partial_fit() to perform incremental_learning
+    y_valid_predict = sgd_reg.predict(X_valid_prep) 
+    val_error = mean_squared_error(y_valid, y_valid_predict, squared = False)
+    if val_error < best_valid_rmse :
+        best_valid_rmse = val_error
+        best_model = deepcopy(sgd_reg)
+
+    # extra code - we evaluate the train error and save it for the figure
+    y_train_predict = sgd_reg.predict(X_train_prep)
+    train_error = mean_squared_error(y_train, y_train_predict, squared=False)
+    val_errors.append(val_error)
+    train_errors.append(train_error)
+```
+  
+ > 회귀 모델을 분류 작업에 활용
+이진 분류 : 로지스틱 회귀  
+다중 클래스 분류 : 소프트맥스 회귀  
 #### 로지스틱 회귀(Logistic Regression)  
+
 
 #### 결정 경계   
 
+로지스틱 회귀 모델에 대한 규제  
+: 사이킷런의 로지스틱 회귀 모델의 하이퍼파라미터 penalty와 C를 이용하여 규제의 방식과 규제의 강도를 지정함  
+  
+penalty
+- $l$1(라쏘 규제), $l$2(릿지 규제), 엘라스틱넷 3가지 중 하나 지정
+- 기본값 $l$2, 즉 $l_2$ 릿지 규제를 기본 적용 함
+- 엘라스틱넷을 선택한 경우에는 $l$1_ratio 옵션 값을 함께 지정해야 함  
+  
+C 
+- 릿지 또는 라쏘 규제 강도를 지정하는 $a$의 inverse에 해당  
+- 0에 가까울수록 강한 규제, 1에 가까울수록 약한 규제  
+
+> (e.g., 붓꽃(Iris) 데이터셋)  
+꽃받침(sepal)과 꽃입(petal)에 관한 다음 4가지 특성들로 이루어짐  
+꽃받침 길이, 꽃받침 너비, 꽃잎 길이, 꽃잎 너비  
+
+분류 클래스 : 총 3가지 품종  
+0 : Setosa(세토사) 1 : Versicolor(버시컬러) 2 : Virginica(버지니카)  
+
+
+: 로지스틱 회귀 모델을 이용하여 Virginica 품종 여부를 판정하는 이진 분류기를 다음과 같이 훈련시킨다. (단, 데이터셋의 4가지 특성 중 꽃잎 너비 특성 하나만 이용함)  
+```
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+X = iris.data[["petal width (cm)"]].values
+y = iris.target_names[iris.target] == 'virginica'
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
+
+log_reg = LogisticRegression(random_state=42)
+log_reg.fit(X_train, y_train)
+```
+<img src = "../image/로지스틱 회귀 적용 예.png" width = 50%>
+로지스틱 회귀 모델의 예측 확률값이 0.5에 해당하는 꽃잎 너비 약 1.6cm 가 결정 경계에 해당함  
+
+
 #### 소프트맥스 회귀(Softmax Regression)
+: 로지스틱 회귀 모델을 일반화하여 다중 클래스 분류를 지원하도록 만든 회귀 모델   
+: 다항 로지스틱 회귀로도 불림  
+(주의 사항)  
+소프트맥스 회귀는 다중 출력 분류는 지원하지 못함.  
+(e.g., 하나의 사진에서 여러 사람의 얼굴 인식 불가능)  

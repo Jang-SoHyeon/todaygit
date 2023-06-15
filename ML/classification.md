@@ -243,8 +243,8 @@ f1_score(y_train_5, y_train_pred)
 
 - 결정 함수(Decision Function)와 결정 임계값(Decision Threshold)  
 : SGD 분류기는 결정 함수를 사용해 주어진 샘플 클래스를 결정하기 위한 점수를 계산 함  
-: if 계산된 점수 < 결정 임계값 => positive 클래스(e.g., 숫자 5 클래스)로 예측  
-: if 계산된 점수 > 결정 임계값 => negative 클래스(e.g., non-5 클래스)로 예측  
+: if 계산된 점수 > 결정 임계값 => positive 클래스(e.g., 숫자 5 클래스)로 예측  
+: if 계산된 점수 < 결정 임계값 => negative 클래스(e.g., non-5 클래스)로 예측  
 <img src = "../image/임계값 변화 case1.png" width=50%>
 
 

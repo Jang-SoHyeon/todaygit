@@ -113,7 +113,7 @@ polynomial_svm_clf = make_pipeline(
 # LinearSVC 분류기 클래스 이용  
 polynomial_svm_clf.fit(X, y)
 ```
-* 다항 특성
+다항 특성
 
 다항 특성 추가 시 문제점  
 - 다항식의 차수(degree)를 높이면 추가되는 다항 특성 수가 엄청나게 많아져서 모델 훈련 과정이 너무 느려지게 된다.  

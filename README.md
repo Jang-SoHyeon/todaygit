@@ -18,3 +18,5 @@ git push -u origin main
 &emsp; : 큰 스페이스  
 
 ctrl+/ : 한 문장 주석 처리
+
+한번에 문자 추가 : ctrl + alt로 묶고 쓰기  
